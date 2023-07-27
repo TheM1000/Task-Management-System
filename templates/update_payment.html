@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Update Payment</h3>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %} 
+        <!-- verifies from where the data is being feed to the form. -->
+        {{ payment_form.as_p }}
+        <input type="submit" class="mb-3" value="Update" />
+    </form>
+    </div>
+    </div>
+</body>
+{% endblock %}

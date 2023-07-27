@@ -1,0 +1,92 @@
+<!-- <h3>WELCOME TO TASK MANAGEMENT SYSTEM</h3>
+    {% for Task in app %}
+    <div>
+        <p>{{Task}}</p>
+    </div>
+    {% endfor %} --> 
+
+    {% load static %}
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="{% static 'CSS/bootstrap.min.css' %}"> 
+         <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
+         <style>
+             .footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #ff6600;
+  text-align: center;
+}
+nav a{
+    margin-left: 6px;
+    text-decoration: none;
+    color: white;
+    
+}
+nav a:hover{
+    cursor: pointer;
+    /* background-color:rgb(70, 70, 149); */
+    color: rgb(70, 70, 149);
+    /* border-bottom:4px solid rgb(70, 70, 149) ; */
+    /* border-radius: 10px; */
+    transition: all 0.5s linear;
+}
+.navigation{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0px;
+    
+}
+
+         </style> 
+    </head>
+    <body>
+        <nav class="navigation" style="background-color: #ff6600;">
+        <div class="d-flex align-items-center">
+          <a href="/"> <img src="/static/images/ApexLogo.jpg" /> </a>  
+
+            {%if request.user.is_authenticated %}
+                
+                <h3>Welcome:{{user.username}}</h3>
+            </div>
+                <a href="/projects/page/1">Projects</a> 
+                <a href="/tasks/page/1">Tasks</a> 
+                <a href="/payments/page/1">Payments</a>
+            {% if request.user.is_superuser %}
+                <a href="/AddProject">Add Project</a>
+                <a href="/AddTask">Add Tasks</a>
+                <a href="/AddPayment">Add Payments</a>
+                <a href="/signup">Register</a>
+            {% endif %}
+            <a href="/signout">Logout</a></li>
+            <a href="{% url 'changepass' %}">Change Password</a>
+            
+            <!-- <a href="/signup">Register</a> -->
+                
+                
+            {% else %}
+                <a href="/signin">Login</a></li>
+                <a href="/signup">Register</a>
+            {% endif %}
+    
+        </nav>
+    
+        <div>
+            
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="footer">Apex construction pvt.ltd,  <strong>All rights reserved</strong>.</div>
+    </body>
+    </html>

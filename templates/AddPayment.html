@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Payment</title>
+    
+</head>
+<body>
+    
+    {% block content %}
+<div class="container mt-5">
+    <h3>Make Payment</h3>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %} 
+        <!-- verifies from where the data is being feed to the form. -->
+        {{ AddPayment_form.as_p }}
+        <input type="submit" class="mb-3" value="submit" />
+    </form>
+
+</div>
+</div>
+{% endblock content %}
+
+</body>
+</html>

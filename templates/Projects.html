@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">StartDate</th>
+        <th scope="col">Budget</th>
+        <th scope="col">EndDate</th>
+        <th scope="col">TotalCost</th>
+        {% if request.user.is_superuser %}
+        <th scope="col">Action</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in projects %}
+      <tr>
+        <th scope="row">{{project.id}}</th>
+        <td> <div class="task-wrapper">
+          {% if project.project_status %}
+              <div class="task-title">
+                <div class="task-complete-icon">
+                  <i><s>  {{project.project_name}}</s></i>
+
+                </div>
+                {% else %}
+                <div class="task-title">
+                  <div class="task-incomplete-icon">
+                      {{project.project_name}}
+              </div>
+            {% endif %}
+          
+          </div>
+        </td>
+        
+        <td>{{project.description}}</td>
+        <td>
+          {% if project.project_status %}
+            Completed
+          {% else %}
+            Incomplete
+          {% endif %}
+        </td>
+        <td>{{project.project_date}}</td>
+
+        <td>{{project.pbudget}}</td>
+        <td>{{project.pend_date}}</td>
+        <td>{{project.ptotalcost}}</td>
+
+        {% if request.user.is_superuser %}
+        <td>
+          <a href="/update_project/{{project.id}}" class="btn btn-warning btn-sm">Update</a>
+        </td>
+        <td>  <a href="/delete_project/{{project.id}}" class="btn btn-danger btn-sm">Delete</a>
+
+        </td>
+
+
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+<div>
+  {% if pagination.current_page > 1 %}
+    <a href="/projects/page/{{pagination.previous_page}}">previous_page</a>
+  {% endif %}
+  {% if pagination.current_page != pagination.last_page %}
+      <a href="/projects/page/{{pagination.next_page}}">Next Page</a>
+  {% endif %}
+
+  
+</div>
+
+{% endblock content %}

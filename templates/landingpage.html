@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load custom_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'CSS/bootstrap.min.css' %}"> 
+     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+{% block content %}
+
+<style>
+    .big-text{
+        font-size: 42px;
+        margin: 20px 0;
+        color:darkorange;
+        text-align: center
+    }
+    .img{
+      height: 500px;
+      width: 500px;
+    
+    }
+    .abc{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      min-height: 40vh;
+    }
+
+    .cards{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 2rem;
+      margin-top: 1rem;
+    }   
+    .card-single {
+      display: flex;
+      justify-content: space-between;
+      background: rgb(244, 146, 146);
+      padding:2rem;
+      border-radius:2px ;
+    } 
+    .cards-single div:first-child span{
+      color: var(--text-grey);
+    }
+  </style> 
+<div class="container  p-3 abc">
+
+         <h1 class="text-center">TASK MANAGEMENT SYSTEM</h1>
+         <p class="big-text">APEX CONSTRUCTION</p>
+
+        <!-- <div class="card">
+         Total Projects:{{project_count | TotalProjects}} 
+         Completed Projects:{{completed_projects | completedProjects}}
+         Incomplete Projects:{{incomplete_projects | incompleteProjects}}<br>
+
+         Total Tasks:{{task_count | TotalTasks}} 
+         Completed Tasks:{{completed_tasks | completedTasks}}
+         Incomplete Tasks:{{incomplete_tasks | incompleteTasks}}<br>
+
+         Total Payments:{{payment_count | TotalPayments}} 
+         Completed Payments:{{completed_payments | completedPayments}}
+         Incomplete Payments:{{incomplete_payments | incompletePayments}}<br>
+        </div> -->
+      <div class="cards">
+        <div class="card-single">
+          <div>
+            <h1>{{incomplete_projects | incompleteProjects}}</h1>
+            <span>Projects</span>
+          </div>
+          
+        </div>
+
+
+
+        <div class="card-single">
+          <div>
+            <h1>{{incomplete_tasks | incompleteTasks}}</h1>
+            <span>Tasks</span>
+          </div>
+        </div>
+
+
+        <div class="card-single">
+          <div>
+            <h1>{{incomplete_payments | incompletePayments}}</h1>
+            <span>Payments</span>
+          </div>
+          <!-- <div>
+            <span class="lab la-google-wallet"></span>
+          </div> -->
+        </div>
+
+        </div>
+        <img class="img" src="static/images/constructionimage.JPG">  
+    
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

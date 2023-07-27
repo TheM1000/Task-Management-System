@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+
+            <th scope="col">PaidOn</th>
+            <th scope="col">Status</th>
+            <th scope="col">PaymentType</th>
+            <th scope="col">TransactionNumber</th>
+            <th scope="col">ChequeNumber</th>
+            
+            {% if request.user.is_superuser %}
+            <th scope="col">Action</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+          <tr>
+            <th scope="row">{{payment.id}}</th>
+            <td> <div class="task-wrapper">
+              {% if payment.pay_status %}
+                  <div class="task-title">
+                    <div class="task-complete-icon">
+                      <i><s>  {{payment.Task}}</s></i>
+
+                    </div>
+                    {% else %}
+                    <div class="task-title">
+                      <div class="task-incomplete-icon">
+                          {{payment.Task}}
+                  </div>
+                {% endif %}
+              
+              </div>
+            </td>
+
+
+            
+            <td>{{payment.pay_amount}}</td>
+            <td>{{payment.pay_date}}</td>
+            <td>
+              {% if payment.pay_status %}
+                Paid
+              {% else %}
+                Pending
+              {% endif %}
+            </td>
+            <td>{{payment.pay_type}}</td>
+            
+            
+            
+            
+            
+            <td>{{payment.transaction_no}}</td>
+            <td>{{payment.cheque_no}}</td>
+            
+            {% if request.user.is_superuser %}
+            <td>
+                <a href="/update_payment/{{payment.id}}" class="btn btn-warning btn-sm">Update</a>
+            </td>
+             <td> <a href="/delete_payment/{{payment.id}}" class="btn btn-danger btn-sm">Delete</a>
+
+            </td>
+
+           
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+
+<div>
+    {% if pagination.current_page > 1 %}
+    <a href="/payments/page/{{pagination.previous_page}}">previous_page</a>
+    {% endif %}
+    {% if pagination.current_page != pagination.last_page %}
+    <a href="/payments/page/{{pagination.next_page}}">Next Page</a>
+    {% endif %}
+  
+</div>
+{% endblock %}

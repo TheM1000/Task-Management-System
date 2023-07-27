@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3> Update Task</h3>
+<div class="form-group">
+    <form method="POST">
+    
+        {% csrf_token %} 
+        <!-- verifies from where the data is being feed to the form. -->
+        <!-- {{ task_form.as_p }} -->
+        {% if request.user.is_superuser %}
+        Project:{{ task_form.project}} <br>
+        
+        Task Name:{{ task_form.task_name}}<br>
+        
+        
+        Description:{{ task_form.description}} <br>
+        
+        HourNeeded:{{ task_form.task_hour}} <br>
+        
+        Cost:{{ task_form.task_cost }}<br>
+        {% endif %}
+        Have you Completed the task?:{{ task_form.task_status}} <br> <br>
+        {% if request.user.is_superuser %}
+        Priority:{{ task_form.task_priority}} <br>
+       
+        Employee:{{ task_form.employee}} <br> <br>
+        {% endif %}
+
+        <input type="submit" class="mb-3" value="Update" />
+    </form>
+    </div>
+    </div>
+    
+</body>
+{% endblock %}

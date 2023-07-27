@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Project</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">HourNeeded</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Status</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Employee</th>
+            
+            
+            <th scope="col">Action</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+          <tr>
+            <th scope="row">{{task.id}}</th>
+            <td>{{task.project}}</td>
+            <td> <div class="task-wrapper">
+              {% if task.task_status %}
+                  <div class="task-title">
+                    <div class="task-complete-icon">
+                      <i><s>  {{task.task_name}}</s></i>
+
+                    </div>
+                    {% else %}
+                    <div class="task-title">
+                      <div class="task-incomplete-icon">
+                          {{task.task_name}}
+                  </div>
+                {% endif %}
+              
+              </div>
+            </td>
+            
+          
+
+            <td>{{task.description}}</td>
+            <td>{{task.task_hour}}</td>
+            <td>{{task.task_cost}}</td>
+            
+            <td>
+              {% if task.task_status %}
+                Completed
+              {% else %}
+                Incomplete
+              {% endif %}
+            </td>
+  
+            <td>{{task.task_priority}}</td>
+            <td>{{task.employee}}</td>
+            <td><a href="/update_task/{{task.id}}" class="btn btn-warning btn-sm">Update</a></td>
+            
+            {% if request.user.is_superuser %}
+            <td>
+                
+                <a href="/delete_task/{{task.id}}" class="btn btn-danger btn-sm">Delete</a>
+
+            </td>
+
+           
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+
+<div>
+    {% if pagination.current_page > 1 %}
+    <a href="/tasks/page/{{pagination.previous_page}}">previous_page</a>
+    {% endif %}
+    {% if pagination.current_page != pagination.last_page %}
+    <a href="/tasks/page/{{pagination.next_page}}">Next Page</a>
+    {% endif %}
+</div>
+{% endblock %}
